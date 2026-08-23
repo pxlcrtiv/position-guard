@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>position-guard · position health</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    background: #0b0e14; color: #d7dae0;
+    min-height: 100vh; padding: 2rem 1rem; display: flex; justify-content: center;
+  }
+  .card {
+    width: min(720px, 100%); background: #12161f; border: 1px solid #232a38;
+    border-radius: 14px; padding: 1.6rem;
+    box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  }
+  .head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  h1 { font-size: 1.05rem; color: #fff; letter-spacing: .04em; }
+  .state-tag {
+    font-size: .72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+    letter-spacing: .08em; color: #0b0e14;
+  }
+  .addr { color: #7f8ea3; font-size: .78rem; word-break: break-all; margin-top: .35rem; }
+  .meta { color: #7f8ea3; font-size: .72rem; margin-top: .5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hf-row { margin: 1.6rem 0 1rem; }
+  .hf-num { font-size: 2.6rem; font-weight: 700; }
+  .hf-label { color: #7f8ea3; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; margin-top: .2rem; }
+  .bar { height: 14px; background: #1c2330; border-radius: 999px; margin-top: .7rem; overflow: hidden; }
+  .bar > div { height: 100%; border-radius: 999px; transition: width .6s ease; }
+  .tick { display: flex; justify-content: space-between; color: #5a6780; font-size: .68rem; margin-top: .3rem; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: .82rem; }
+  th { text-align: left; color: #7f8ea3; font-weight: 600; font-size: .7rem; text-transform: uppercase;
+       letter-spacing: .08em; padding: .45rem .5rem; border-bottom: 1px solid #232a38; }
+  td { padding: .5rem; border-bottom: 1px solid #1a202c; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .alert { margin-top: 1.4rem; border-radius: 10px; padding: 1rem 1.1rem; font-size: .9rem; line-height: 1.55; }
+  .alert .who { font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; opacity: .8; margin-bottom: .35rem; }
+  .foot { margin-top: 1.6rem; color: #55617a; font-size: .7rem; line-height: 1.6; border-top: 1px solid #1a202c; padding-top: .9rem; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <div>
+      <h1>position-guard · position health</h1>
+      <div class="addr">0xd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3</div>
+    </div>
+    <span class="state-tag" style="background:#e74c3c">CRITICAL</span>
+  </div>
+  <div class="meta">
+    <span>protocol aave-v3</span>
+    <span>source fixture</span>
+    <span>2026-08-23 23:00 UTC</span>
+  </div>
+
+  <div class="hf-row">
+    <div class="hf-num" style="color:#e74c3c">1.12</div>
+    <div class="hf-label">health factor · liquidation at &lt; 1.00</div>
+    <div class="bar"><div style="width:45%; background:#e74c3c"></div></div>
+    <div class="tick"><span>0</span><span>0.5</span><span>1.0 (liq)</span><span>1.5</span><span>2.5+</span></div>
+  </div>
+
+  <table>
+    <tr><th>Side</th><th>Asset</th><th class="num">Amount</th><th class="num">Value (USD)</th><th class="num">Weight</th></tr>
+    <tr><td style="color:#e74c3c">Collateral</td><td>ETH</td><td class="num">2.5000</td><td class="num">$8,500</td><td class="num">82.5%</td></tr>
+    <tr><td style="color:#7f8ea3">Debt</td><td>USDC</td><td class="num">6,250.0000</td><td class="num">$6,250</td><td class="num">—</td></tr>
+  </table>
+
+  <div class="alert" style="background:#e74c3c14; border:1px solid #e74c3c">
+    <div class="who">alert · template backend</div>
+    <div>Your ETH position on aave-v3 is at 1.12 HF with only ~$763 of breathing room. This is liquidation-adjacent — top up or repay today.</div>
+  </div>
+
+  <div class="foot">
+    Collateral $8,500 · Debt $6,250 · Margin-to-liquidation $763<br>
+    <strong>Disclaimer:</strong> position-guard is a monitoring aid, not financial
+    advice, and not a liquidation service. Health factors shown here are
+    simplified approximations of the protocol's own math (see README). No real
+    funds are ever touched — data comes from public subgraphs / bundled demo
+    fixtures. Always confirm against the protocol UI before acting.
+  </div>
+</div>
+</body>
+</html>

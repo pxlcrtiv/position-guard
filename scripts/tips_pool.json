@@ -1,0 +1,112 @@
+[
+  {
+    "title": "Health factor below 1.0 is not a warning — it is a live auction",
+    "body": "At HF < 1.00 your position is immediately liquidatable, and anyone can repay your debt to claim a discount on your collateral. There is no 'grace period'. Monitor HF with a buffer: act at 1.15, not at 1.01. position-guard's critical band starts there on purpose.",
+    "command": "position-guard check --address 0xYourAddressHere --protocol aave-v3"
+  },
+  {
+    "title": "The 1.12 trap: small HF looks fine until the chart gaps",
+    "body": "A position at 1.12 HF has ~12% price room before liquidation on paper — but oracles update every block, and a flash-crash can move 12% in seconds. The dollar margin matters more: ~$763 of margin can evaporate in one CEX spike candle. Top up while the top-up is cheap.",
+    "command": "position-guard check --address 0xYourAddressHere --json-out"
+  },
+  {
+    "title": "Stablecoins are not stable — depeg risk is collateral risk",
+    "body": "If your debt is in a stablecoin that depegs to $0.90, your dollar debt drops (good for you) — but if you HOLD that stablecoin as collateral and it depegs, your collateral USD value collapses while the protocol's oracle may lag or follow the exchange price (bad for you). Never borrow against a stablecoin's full nominal value.",
+    "command": ""
+  },
+  {
+    "title": "Oracle lag is a liquidation weapon",
+    "body": "Aave and Compound price assets via oracles that can lag spot markets (especially during volatility and low liquidity). Liquidator bots watch for the moment oracle price crosses your liquidation price — they don't wait for 'fair value'. Assumed oracle = fast is the wrong assumption.",
+    "command": ""
+  },
+  {
+    "title": "Liquidation is not full loss — but it is rarely painless",
+    "body": "When liquidated you lose up to the liquidation bonus (typically 5-10% of collateral) plus fees, and the remainder of the position survives. The worst outcome is being liquidated at the bottom of a dip: the bonus is taken from your collateral at exactly the worst price. Voluntary close-outs beat forced ones.",
+    "command": "position-guard watch --address 0xYourAddressHere --interval 300 --telegram"
+  },
+  {
+    "title": "APY is not your profit — APR vs APY vs realized",
+    "body": "Protocols advertise APY (compounded) while many rewards stream as APR (simple). Realized yield is lower than headline APY once you account for gas to claim and compound, reward token price decay, and the tax event. Model yield before levering into it.",
+    "command": ""
+  },
+  {
+    "title": "The supply rate is paid to suppliers, not to the protocol",
+    "body": "When you supply ETH to Aave you earn the supply rate, but your collateral's health contribution ignores interest — while your borrowed balance accrues interest continuously. Every block your HF ticks down silently. Long passive borrowing positions decay without any visible change in balances.",
+    "command": "position-guard history --address 0xYourAddressHere"
+  },
+  {
+    "title": "Unlimited approvals are a permanent backdoor",
+    "body": "An approval from 2023 still lets that contract move your tokens. Revoke approvals you no longer use (revoke.cash, or a dedicated revoker). For position management, prefer 'spend limit = position size + buffer'; for monitoring bots, a read-only key or no key at all — position-guard needs only a public address.",
+    "command": ""
+  },
+  {
+    "title": "Testnet practice beats mainnet pain — and it is free",
+    "body": "Every liquidation that could have happened for $3 of Sepolia ETH can be rehearsed: supply, borrow to the edge, let the HF drift, watch the state machine fire. position-guard's fixtures mimic exactly this shape. No amount of theory replaces one real forced-liquidation rehearsal.",
+    "command": "position-guard demo --protocol compound-v3"
+  },
+  {
+    "title": "Gas spikes change the liquidation surface",
+    "body": "At 300 gwei, a $50 top-up costs more in gas than the margin it buys — and liquidators, who batch, still find it profitable. Small positions with thin margins are the most dangerous: the rescue transaction may be economically irrational while the liquidation is not.",
+    "command": ""
+  },
+  {
+    "title": "Watch the borrow rate, not just the HF",
+    "body": "Utilization above ~90-95% sends borrow APRs parabolic. Your stablecoin debt could go from 4% to 40% APR overnight; the extra interest then erodes HF faster. If the utilization of your borrowed asset is high, price stability depends on everyone else behaving.",
+    "command": ""
+  },
+  {
+    "title": "Multi-collateral positions: each leg has its own liquidation price",
+    "body": "With ETH + WBTC collateral and a stable debt, the liquidation price of ETH depends on WBTC's current price — they move together in crashes, which is exactly when the calculation gets pessimistic. position-guard computes per-asset liquidation prices holding everything else fixed; remember that 'everything else' rarely holds.",
+    "command": "position-guard preview"
+  },
+  {
+    "title": "The health factor formula hides the liquidation bonus",
+    "body": "HF = weighted collateral / debt looks binary, but liquidations execute at a bonus (e.g. 5%), meaning liquidators profit slightly BEFORE HF hits 1.0 in some configurations, and the protocol may also apply close-factor limits (e.g. 50% per liquidation). The smooth HF line is a simplification of a very lumpy process.",
+    "command": ""
+  },
+  {
+    "title": "Bridge risk outranks most yield math",
+    "body": "If your collateral sits behind a bridge (wrapped asset, L2 position managed from L1), a bridge outage on the day of a crash means you cannot top up. Position risk = protocol risk + bridge risk. Keep rescue paths on the same chain as the position.",
+    "command": ""
+  },
+  {
+    "title": "MEV is not a bug in your position — it is a tax on it",
+    "body": "Sandwich attacks around your swaps cost you basis points on every rebalance; liquidations are MEV too. Large positions get front-run because the profit is there. If you cannot avoid the swap, at least avoid swapping INTO a thin-margin window: do rebalances when HF has comfortable headroom.",
+    "command": ""
+  },
+  {
+    "title": "Your biggest risk is usually your own key management",
+    "body": "Cold wallets, hardware keys, and clear inheritance plans beat every DeFi strategy. A monitored position whose key is lost is a permanent, unmanageable exposure. If an exchange or custody holds your key, your 'self-custody' yield has a counterparty risk line-item you should price in.",
+    "command": ""
+  },
+  {
+    "title": "Read the admin keys section, not just the TVL",
+    "body": "High TVL is not safety: check whether the protocol has upgradeable contracts, admin keys, or a timelock (Aave has a long timelock; many yield farms have none). A 2-day timelock means a compromised admin can still empty everything, just slowly. position-guard monitors YOUR position, not the protocol's health — do both.",
+    "command": ""
+  },
+  {
+    "title": "Keep liquidation math honest: the UI lags the blockchain",
+    "body": "Dashboards poll; the chain doesn't. The HF you see on aave.com at 14:00:00 is stale by the time you read it. position-guard labels fixture vs live data and logs every snapshot with a timestamp for exactly this reason — audit your own alerts; trust nothing displayed more than a few seconds old.",
+    "command": "position-guard history"
+  },
+  {
+    "title": "The exit plan is part of the entry plan",
+    "body": "Decide BEFORE you lever: what HF triggers a top-up, what triggers a full exit, what price of the collateral kills the thesis. Write it down next to the position (a comment in your own notes, not on-chain). Panic decisions in a red candle are how margin gets destroyed.",
+    "command": ""
+  },
+  {
+    "title": "Dust positions accrue real risk",
+    "body": "A $50 collateral balance with a $45 debt at 0.5% borrow spread still liquidates at the same mechanics as a whale position — and no one will rescue it economically. Close or merge dust positions; the monitoring cost is the same as for a big one.",
+    "command": "position-guard history --address 0xYourAddressHere"
+  },
+  {
+    "title": "Rebalancing is a trade, not a chore",
+    "body": "Every swap you do to 'optimize' the position pays spread + gas + MEV. Over-optimized positions that HODL quietly often beat churned ones. Only rebalance with intent: it should move the liquidation price materially or cut borrow APR — otherwise the fees are the only certain thing.",
+    "command": ""
+  },
+  {
+    "title": "The liquidation price of ETH collateral is closer than you think",
+    "body": "Roughly: ETH liquidation price = debt / (ETH amount × liq threshold) with other legs ignored. At 0.825 threshold that is about 1.21× the price implied by HF alone — your '30% crash buffer' at HF 1.3 is really ~10% of pure ETH movement once USDC legs and bonuses are counted. Do the arithmetic on your own position.",
+    "command": "position-guard check --address 0xYourAddressHere --json-out"
+  }
+]

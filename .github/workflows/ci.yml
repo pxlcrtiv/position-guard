@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pytest ruff
+          pip install -e .          # console script: position-guard
+
+      - name: Unit tests (offline, golden health-factor math included)
+        run: python -m pytest tests/ -q
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Demo smoke — keyless offline demo must render alert + preview
+        run: |
+          position-guard demo --out /tmp/preview.html --db /tmp/smoke.db --no-browser | grep -q "1.12"
+          position-guard demo --protocol compound-v3 --out /tmp/preview2.html --db /tmp/smoke2.db --no-browser | grep -q "1.36"
+          grep -q "CRITICAL" /tmp/preview.html
+          test -s /tmp/preview.html

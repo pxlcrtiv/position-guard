@@ -1,0 +1,31 @@
+name: Daily Green
+
+on:
+  schedule:
+    - cron: "0 12 * * *"  # 12:00 UTC daily — cloud fallback for the local launchd job
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so existing daily days are seen
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run daily update (idempotent; backfills missed days)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/daily_update.py
+
+      - name: Push (GITHUB_TOKEN can push on schedule branch)
+        if: success()
+        run: |
+          git push origin HEAD:${GITHUB_REF#refs/heads/} || echo "nothing to push or push rejected (local already won the day)"

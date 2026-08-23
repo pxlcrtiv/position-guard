@@ -1,0 +1,37 @@
+{
+  "data": {
+    "user": {
+      "id": "0xd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3",
+      "userReserves": [
+        {
+          "usageAsCollateralEnabled": true,
+          "currentATokenBalance": "2.500000000000000000000",
+          "currentVariableDebt": "0",
+          "currentStableDebt": "0",
+          "reserve": {
+            "symbol": "ETH",
+            "decimals": 18,
+            "liquidationThreshold": "8250",
+            "price": { "priceInEth": "1.0" }
+          }
+        },
+        {
+          "usageAsCollateralEnabled": false,
+          "currentATokenBalance": "0",
+          "currentVariableDebt": "6250.000000000000000000",
+          "currentStableDebt": "0",
+          "reserve": {
+            "symbol": "USDC",
+            "decimals": 6,
+            "liquidationThreshold": "7500",
+            "price": { "priceInEth": "0.0002941176470588235" }
+          }
+        }
+      ]
+    }
+  },
+  "_meta": {
+    "snapshot": "2026-08-23T00:00:00Z",
+    "note": "Bundled synthetic fixture for the keyless demo. ETH/USD 3400, USDC/USD 1.0. HF = (2.5*3400*0.825)/6250 = 1.122"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "data": {
+    "account": {
+      "id": "0xd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3",
+      "baseBorrowed": "6000",
+      "baseSupply": "0",
+      "health": { "liquidationThreshold": "0.8" },
+      "collateral": [
+        {
+          "asset": {
+            "symbol": "ETH",
+            "price": { "priceUsd": "3400" }
+          },
+          "amount": "3.0"
+        }
+      ]
+    }
+  },
+  "_meta": {
+    "snapshot": "2026-08-23T00:00:00Z",
+    "note": "Compound v3 (USDC Comet) synthetic fixture. ETH 3.0 @3400, bcp 0.80; baseBorrowed 6000 USDC. HF = (3*3400*0.80)/6000 = 1.36"
+  }
+}

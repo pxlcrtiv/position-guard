@@ -1,0 +1,9 @@
+{
+  "ethereum": 3400.0,
+  "usd-coin": 1.0,
+  "tether": 1.0,
+  "wrapped-bitcoin": 61000.0,
+  "_meta": {
+    "note": "Bundled CoinGecko fallback prices (demo snapshot). Keyed by CoinGecko asset ids."
+  }
+}

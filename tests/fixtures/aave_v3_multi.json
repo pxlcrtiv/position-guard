@@ -1,0 +1,61 @@
+{
+  "data": {
+    "user": {
+      "id": "0xd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3",
+      "userReserves": [
+        {
+          "usageAsCollateralEnabled": true,
+          "currentATokenBalance": "1.000000000000000000000",
+          "currentVariableDebt": "0",
+          "currentStableDebt": "0",
+          "reserve": {
+            "symbol": "ETH",
+            "decimals": 18,
+            "liquidationThreshold": "8250",
+            "price": { "priceInEth": "1.0" }
+          }
+        },
+        {
+          "usageAsCollateralEnabled": true,
+          "currentATokenBalance": "0.100000000000000000000",
+          "currentVariableDebt": "0",
+          "currentStableDebt": "0",
+          "reserve": {
+            "symbol": "WBTC",
+            "decimals": 8,
+            "liquidationThreshold": "8000",
+            "price": { "priceInEth": "17.941176470588235" }
+          }
+        },
+        {
+          "usageAsCollateralEnabled": false,
+          "currentATokenBalance": "0",
+          "currentVariableDebt": "3000.000000000000000000",
+          "currentStableDebt": "0",
+          "reserve": {
+            "symbol": "USDT",
+            "decimals": 6,
+            "liquidationThreshold": "0",
+            "price": { "priceInEth": "0.0002941176470588235" }
+          }
+        },
+        {
+          "usageAsCollateralEnabled": false,
+          "currentATokenBalance": "0",
+          "currentVariableDebt": "2000.000000000000000000",
+          "currentStableDebt": "0",
+          "reserve": {
+            "symbol": "USDC",
+            "decimals": 6,
+            "liquidationThreshold": "7500",
+            "price": { "priceInEth": "0.0002941176470588235" }
+          }
+        }
+      ]
+    }
+  },
+  "_meta": {
+    "snapshot": "2026-08-23T00:00:00Z",
+    "note": "Multi-asset fixture for golden math tests. ETH 1.0 @3400 (thr 0.825) + WBTC 0.1 @61000 (thr 0.80); debt USDT 3000 + USDC 2000. HF = (2805+4880)/5000 = 1.537"
+  }
+}

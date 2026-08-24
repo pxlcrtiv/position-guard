@@ -24,3 +24,8 @@ Every liquidation that could have happened for $3 of Sepolia ETH can be rehearse
 
 > `position-guard demo --protocol compound-v3`
 
+
+## 2026-08-24 — DeFi risk tip: Gas spikes change the liquidation surface
+
+At 300 gwei, a $50 top-up costs more in gas than the margin it buys — and liquidators, who batch, still find it profitable. Small positions with thin margins are the most dangerous: the rescue transaction may be economically irrational while the liquidation is not.
+

@@ -34,3 +34,10 @@ At 300 gwei, a $50 top-up costs more in gas than the margin it buys — and liqu
 
 Utilization above ~90-95% sends borrow APRs parabolic. Your stablecoin debt could go from 4% to 40% APR overnight; the extra interest then erodes HF faster. If the utilization of your borrowed asset is high, price stability depends on everyone else behaving.
 
+
+## 2026-08-26 — DeFi risk tip: Multi-collateral positions: each leg has its own liquidation price
+
+With ETH + WBTC collateral and a stable debt, the liquidation price of ETH depends on WBTC's current price — they move together in crashes, which is exactly when the calculation gets pessimistic. position-guard computes per-asset liquidation prices holding everything else fixed; remember that 'everything else' rarely holds.
+
+> `position-guard preview`
+

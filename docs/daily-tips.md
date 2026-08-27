@@ -41,3 +41,8 @@ With ETH + WBTC collateral and a stable debt, the liquidation price of ETH depen
 
 > `position-guard preview`
 
+
+## 2026-08-27 — DeFi risk tip: The health factor formula hides the liquidation bonus
+
+HF = weighted collateral / debt looks binary, but liquidations execute at a bonus (e.g. 5%), meaning liquidators profit slightly BEFORE HF hits 1.0 in some configurations, and the protocol may also apply close-factor limits (e.g. 50% per liquidation). The smooth HF line is a simplification of a very lumpy process.
+

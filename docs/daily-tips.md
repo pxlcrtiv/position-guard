@@ -46,3 +46,8 @@ With ETH + WBTC collateral and a stable debt, the liquidation price of ETH depen
 
 HF = weighted collateral / debt looks binary, but liquidations execute at a bonus (e.g. 5%), meaning liquidators profit slightly BEFORE HF hits 1.0 in some configurations, and the protocol may also apply close-factor limits (e.g. 50% per liquidation). The smooth HF line is a simplification of a very lumpy process.
 
+
+## 2026-08-28 — DeFi risk tip: Bridge risk outranks most yield math
+
+If your collateral sits behind a bridge (wrapped asset, L2 position managed from L1), a bridge outage on the day of a crash means you cannot top up. Position risk = protocol risk + bridge risk. Keep rescue paths on the same chain as the position.
+

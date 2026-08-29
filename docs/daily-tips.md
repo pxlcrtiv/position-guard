@@ -51,3 +51,8 @@ HF = weighted collateral / debt looks binary, but liquidations execute at a bonu
 
 If your collateral sits behind a bridge (wrapped asset, L2 position managed from L1), a bridge outage on the day of a crash means you cannot top up. Position risk = protocol risk + bridge risk. Keep rescue paths on the same chain as the position.
 
+
+## 2026-08-29 — DeFi risk tip: MEV is not a bug in your position — it is a tax on it
+
+Sandwich attacks around your swaps cost you basis points on every rebalance; liquidations are MEV too. Large positions get front-run because the profit is there. If you cannot avoid the swap, at least avoid swapping INTO a thin-margin window: do rebalances when HF has comfortable headroom.
+

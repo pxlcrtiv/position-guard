@@ -56,3 +56,8 @@ If your collateral sits behind a bridge (wrapped asset, L2 position managed from
 
 Sandwich attacks around your swaps cost you basis points on every rebalance; liquidations are MEV too. Large positions get front-run because the profit is there. If you cannot avoid the swap, at least avoid swapping INTO a thin-margin window: do rebalances when HF has comfortable headroom.
 
+
+## 2026-08-30 — DeFi risk tip: Your biggest risk is usually your own key management
+
+Cold wallets, hardware keys, and clear inheritance plans beat every DeFi strategy. A monitored position whose key is lost is a permanent, unmanageable exposure. If an exchange or custody holds your key, your 'self-custody' yield has a counterparty risk line-item you should price in.
+

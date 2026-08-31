@@ -61,3 +61,8 @@ Sandwich attacks around your swaps cost you basis points on every rebalance; liq
 
 Cold wallets, hardware keys, and clear inheritance plans beat every DeFi strategy. A monitored position whose key is lost is a permanent, unmanageable exposure. If an exchange or custody holds your key, your 'self-custody' yield has a counterparty risk line-item you should price in.
 
+
+## 2026-08-31 — DeFi risk tip: Read the admin keys section, not just the TVL
+
+High TVL is not safety: check whether the protocol has upgradeable contracts, admin keys, or a timelock (Aave has a long timelock; many yield farms have none). A 2-day timelock means a compromised admin can still empty everything, just slowly. position-guard monitors YOUR position, not the protocol's health — do both.
+

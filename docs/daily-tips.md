@@ -73,3 +73,8 @@ Dashboards poll; the chain doesn't. The HF you see on aave.com at 14:00:00 is st
 
 > `position-guard history`
 
+
+## 2026-09-02 — DeFi risk tip: The exit plan is part of the entry plan
+
+Decide BEFORE you lever: what HF triggers a top-up, what triggers a full exit, what price of the collateral kills the thesis. Write it down next to the position (a comment in your own notes, not on-chain). Panic decisions in a red candle are how margin gets destroyed.
+

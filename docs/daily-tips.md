@@ -90,3 +90,10 @@ A $50 collateral balance with a $45 debt at 0.5% borrow spread still liquidates 
 
 Every swap you do to 'optimize' the position pays spread + gas + MEV. Over-optimized positions that HODL quietly often beat churned ones. Only rebalance with intent: it should move the liquidation price materially or cut borrow APR — otherwise the fees are the only certain thing.
 
+
+## 2026-09-05 — DeFi risk tip: The liquidation price of ETH collateral is closer than you think
+
+Roughly: ETH liquidation price = debt / (ETH amount × liq threshold) with other legs ignored. At 0.825 threshold that is about 1.21× the price implied by HF alone — your '30% crash buffer' at HF 1.3 is really ~10% of pure ETH movement once USDC legs and bonuses are counted. Do the arithmetic on your own position.
+
+> `position-guard check --address 0xYourAddressHere --json-out`
+

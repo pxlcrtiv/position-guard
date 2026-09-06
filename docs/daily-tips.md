@@ -97,3 +97,10 @@ Roughly: ETH liquidation price = debt / (ETH amount × liq threshold) with other
 
 > `position-guard check --address 0xYourAddressHere --json-out`
 
+
+## 2026-09-06 — DeFi risk tip: Health factor below 1.0 is not a warning — it is a live auction
+
+At HF < 1.00 your position is immediately liquidatable, and anyone can repay your debt to claim a discount on your collateral. There is no 'grace period'. Monitor HF with a buffer: act at 1.15, not at 1.01. position-guard's critical band starts there on purpose.
+
+> `position-guard check --address 0xYourAddressHere --protocol aave-v3`
+

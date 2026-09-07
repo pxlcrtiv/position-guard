@@ -104,3 +104,10 @@ At HF < 1.00 your position is immediately liquidatable, and anyone can repay you
 
 > `position-guard check --address 0xYourAddressHere --protocol aave-v3`
 
+
+## 2026-09-07 — DeFi risk tip: The 1.12 trap: small HF looks fine until the chart gaps
+
+A position at 1.12 HF has ~12% price room before liquidation on paper — but oracles update every block, and a flash-crash can move 12% in seconds. The dollar margin matters more: ~$763 of margin can evaporate in one CEX spike candle. Top up while the top-up is cheap.
+
+> `position-guard check --address 0xYourAddressHere --json-out`
+

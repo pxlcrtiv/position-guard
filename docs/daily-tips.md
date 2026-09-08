@@ -111,3 +111,8 @@ A position at 1.12 HF has ~12% price room before liquidation on paper — but or
 
 > `position-guard check --address 0xYourAddressHere --json-out`
 
+
+## 2026-09-08 — DeFi risk tip: Stablecoins are not stable — depeg risk is collateral risk
+
+If your debt is in a stablecoin that depegs to $0.90, your dollar debt drops (good for you) — but if you HOLD that stablecoin as collateral and it depegs, your collateral USD value collapses while the protocol's oracle may lag or follow the exchange price (bad for you). Never borrow against a stablecoin's full nominal value.
+

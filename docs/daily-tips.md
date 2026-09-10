@@ -121,3 +121,10 @@ If your debt is in a stablecoin that depegs to $0.90, your dollar debt drops (go
 
 Aave and Compound price assets via oracles that can lag spot markets (especially during volatility and low liquidity). Liquidator bots watch for the moment oracle price crosses your liquidation price — they don't wait for 'fair value'. Assumed oracle = fast is the wrong assumption.
 
+
+## 2026-09-10 — DeFi risk tip: Liquidation is not full loss — but it is rarely painless
+
+When liquidated you lose up to the liquidation bonus (typically 5-10% of collateral) plus fees, and the remainder of the position survives. The worst outcome is being liquidated at the bottom of a dip: the bonus is taken from your collateral at exactly the worst price. Voluntary close-outs beat forced ones.
+
+> `position-guard watch --address 0xYourAddressHere --interval 300 --telegram`
+

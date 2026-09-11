@@ -128,3 +128,8 @@ When liquidated you lose up to the liquidation bonus (typically 5-10% of collate
 
 > `position-guard watch --address 0xYourAddressHere --interval 300 --telegram`
 
+
+## 2026-09-11 — DeFi risk tip: APY is not your profit — APR vs APY vs realized
+
+Protocols advertise APY (compounded) while many rewards stream as APR (simple). Realized yield is lower than headline APY once you account for gas to claim and compound, reward token price decay, and the tax event. Model yield before levering into it.
+

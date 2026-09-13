@@ -133,3 +133,15 @@ When liquidated you lose up to the liquidation bonus (typically 5-10% of collate
 
 Protocols advertise APY (compounded) while many rewards stream as APR (simple). Realized yield is lower than headline APY once you account for gas to claim and compound, reward token price decay, and the tax event. Model yield before levering into it.
 
+
+## 2026-09-12 — DeFi risk tip: The supply rate is paid to suppliers, not to the protocol
+
+When you supply ETH to Aave you earn the supply rate, but your collateral's health contribution ignores interest — while your borrowed balance accrues interest continuously. Every block your HF ticks down silently. Long passive borrowing positions decay without any visible change in balances.
+
+> `position-guard history --address 0xYourAddressHere`
+
+
+## 2026-09-13 — DeFi risk tip: Unlimited approvals are a permanent backdoor
+
+An approval from 2023 still lets that contract move your tokens. Revoke approvals you no longer use (revoke.cash, or a dedicated revoker). For position management, prefer 'spend limit = position size + buffer'; for monitoring bots, a read-only key or no key at all — position-guard needs only a public address.
+

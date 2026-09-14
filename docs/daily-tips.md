@@ -145,3 +145,10 @@ When you supply ETH to Aave you earn the supply rate, but your collateral's heal
 
 An approval from 2023 still lets that contract move your tokens. Revoke approvals you no longer use (revoke.cash, or a dedicated revoker). For position management, prefer 'spend limit = position size + buffer'; for monitoring bots, a read-only key or no key at all — position-guard needs only a public address.
 
+
+## 2026-09-14 — DeFi risk tip: Testnet practice beats mainnet pain — and it is free
+
+Every liquidation that could have happened for $3 of Sepolia ETH can be rehearsed: supply, borrow to the edge, let the HF drift, watch the state machine fire. position-guard's fixtures mimic exactly this shape. No amount of theory replaces one real forced-liquidation rehearsal.
+
+> `position-guard demo --protocol compound-v3`
+

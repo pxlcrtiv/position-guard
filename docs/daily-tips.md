@@ -157,3 +157,8 @@ Every liquidation that could have happened for $3 of Sepolia ETH can be rehearse
 
 At 300 gwei, a $50 top-up costs more in gas than the margin it buys — and liquidators, who batch, still find it profitable. Small positions with thin margins are the most dangerous: the rescue transaction may be economically irrational while the liquidation is not.
 
+
+## 2026-09-16 — DeFi risk tip: Watch the borrow rate, not just the HF
+
+Utilization above ~90-95% sends borrow APRs parabolic. Your stablecoin debt could go from 4% to 40% APR overnight; the extra interest then erodes HF faster. If the utilization of your borrowed asset is high, price stability depends on everyone else behaving.
+

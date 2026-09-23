@@ -194,3 +194,10 @@ Cold wallets, hardware keys, and clear inheritance plans beat every DeFi strateg
 
 High TVL is not safety: check whether the protocol has upgradeable contracts, admin keys, or a timelock (Aave has a long timelock; many yield farms have none). A 2-day timelock means a compromised admin can still empty everything, just slowly. position-guard monitors YOUR position, not the protocol's health — do both.
 
+
+## 2026-09-23 — DeFi risk tip: Keep liquidation math honest: the UI lags the blockchain
+
+Dashboards poll; the chain doesn't. The HF you see on aave.com at 14:00:00 is stale by the time you read it. position-guard labels fixture vs live data and logs every snapshot with a timestamp for exactly this reason — audit your own alerts; trust nothing displayed more than a few seconds old.
+
+> `position-guard history`
+

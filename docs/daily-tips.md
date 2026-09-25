@@ -206,3 +206,10 @@ Dashboards poll; the chain doesn't. The HF you see on aave.com at 14:00:00 is st
 
 Decide BEFORE you lever: what HF triggers a top-up, what triggers a full exit, what price of the collateral kills the thesis. Write it down next to the position (a comment in your own notes, not on-chain). Panic decisions in a red candle are how margin gets destroyed.
 
+
+## 2026-09-25 — DeFi risk tip: Dust positions accrue real risk
+
+A $50 collateral balance with a $45 debt at 0.5% borrow spread still liquidates at the same mechanics as a whale position — and no one will rescue it economically. Close or merge dust positions; the monitoring cost is the same as for a big one.
+
+> `position-guard history --address 0xYourAddressHere`
+

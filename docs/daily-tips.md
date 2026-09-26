@@ -213,3 +213,8 @@ A $50 collateral balance with a $45 debt at 0.5% borrow spread still liquidates 
 
 > `position-guard history --address 0xYourAddressHere`
 
+
+## 2026-09-26 — DeFi risk tip: Rebalancing is a trade, not a chore
+
+Every swap you do to 'optimize' the position pays spread + gas + MEV. Over-optimized positions that HODL quietly often beat churned ones. Only rebalance with intent: it should move the liquidation price materially or cut borrow APR — otherwise the fees are the only certain thing.
+

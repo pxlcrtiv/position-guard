@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Architecture Report — /Users/admin/portfolio/repos/position-guard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>mermaid{background:transparent;}</style>
+</head>
+<body class="bg-gray-950 text-gray-200 p-6 max-w-5xl mx-auto">
+<h1 class="text-2xl font-bold text-white mb-1">Architecture Report</h1>
+<p class="text-sm text-gray-500 mb-6">/Users/admin/portfolio/repos/position-guard — scanned 2026-09-26T14:38:08.815544+00:00</p>
+
+<div class="grid grid-cols-3 gap-4 mb-8">
+  <div class="bg-gray-900 rounded-lg p-4 text-center">
+    <div class="text-3xl font-bold text-white">23</div>
+    <div class="text-xs text-gray-500 mt-1">Python files</div>
+  </div>
+  <div class="bg-gray-900 rounded-lg p-4 text-center">
+    <div class="text-3xl font-bold text-white">23</div>
+    <div class="text-xs text-gray-500 mt-1">Modules analyzed</div>
+  </div>
+  <div class="bg-gray-900 rounded-lg p-4 text-center">
+    <div class="text-3xl font-bold text-green-400">0</div>
+    <div class="text-xs text-gray-500 mt-1">Import cycles</div>
+  </div>
+</div>
+
+
+    <div class="bg-gray-900 border border-amber-500/30 rounded-lg p-4 mb-6">
+      <div class="text-sm text-amber-400 font-semibold mb-1">Top recommendation</div>
+      <code class="text-white">tests/test_alerts.py</code>
+      <p class="text-sm text-gray-400 mt-1">Shallow module: 7 exports, 93 lines</p>
+      <p class="text-xs text-gray-600 mt-2">Run the full <code>improve-codebase-architecture</code> skill on this repo to grill through the deepening.</p>
+    </div>
+
+        <h2 class="text-lg font-semibold text-white mt-8 mb-3">Shallow Modules</h2>
+        
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <div class="flex justify-between items-start mb-3">
+            <code class="text-sm text-amber-400">tests/test_alerts.py</code>
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-amber-500">Worth exploring</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 text-xs">
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">BEFORE — shallow</div>
+              <div class="text-gray-300">7 exports (test_critical_template_matches_one_liner, test_template_is_deterministic, test_healthy_and_liquidation_wording, test_no_debt_renders_infinite_hf)<br>93 lines, ? decisions</div>
+            </div>
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">AFTER — deepened</div>
+              <div class="text-gray-300">Hide internals behind a seam<br>Reduce public surface by half</div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">Leverage: callers depend on fewer names. Locality: logic moves behind the interface.</p>
+        </div>
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <div class="flex justify-between items-start mb-3">
+            <code class="text-sm text-amber-400">tests/test_health.py</code>
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-amber-500">Worth exploring</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 text-xs">
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">BEFORE — shallow</div>
+              <div class="text-gray-300">7 exports (test_aave_v3_health_factor_golden, test_aave_v3_health_factor_multi_asset_golden, test_compound_v3_health_factor_golden, test_no_debt_means_infinite_hf)<br>92 lines, ? decisions</div>
+            </div>
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">AFTER — deepened</div>
+              <div class="text-gray-300">Hide internals behind a seam<br>Reduce public surface by half</div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">Leverage: callers depend on fewer names. Locality: logic moves behind the interface.</p>
+        </div>
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <div class="flex justify-between items-start mb-3">
+            <code class="text-sm text-amber-400">tests/test_integration.py</code>
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-amber-500">Worth exploring</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 text-xs">
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">BEFORE — shallow</div>
+              <div class="text-gray-300">8 exports (test_monitor_demo_snapshot_golden, test_handle_tick_fires_once_per_state_and_bucket, test_watch_loop_counts_ticks_without_sleeping, test_watch_loop_stops_on_false)<br>120 lines, ? decisions</div>
+            </div>
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">AFTER — deepened</div>
+              <div class="text-gray-300">Hide internals behind a seam<br>Reduce public surface by half</div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">Leverage: callers depend on fewer names. Locality: logic moves behind the interface.</p>
+        </div>
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <div class="flex justify-between items-start mb-3">
+            <code class="text-sm text-amber-400">tests/test_client.py</code>
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-amber-500">Worth exploring</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 text-xs">
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">BEFORE — shallow</div>
+              <div class="text-gray-300">6 exports (test_aave_client_live_path_with_mock_transport, test_aave_client_falls_back_to_fixture_when_offline, test_subgraph_error_triggers_fixture_fallback, test_compound_client_parses_amounts_and_bcp)<br>96 lines, ? decisions</div>
+            </div>
+            <div class="bg-gray-800 rounded p-3">
+              <div class="text-gray-500 mb-1">AFTER — deepened</div>
+              <div class="text-gray-300">Hide internals behind a seam<br>Reduce public surface by half</div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">Leverage: callers depend on fewer names. Locality: logic moves behind the interface.</p>
+        </div>
+<h2 class="text-lg font-semibold text-white mt-8 mb-3">High Coupling</h2>
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <code class="text-sm text-purple-400">position_guard/alerts.py</code>
+          <p class="text-xs text-gray-500 mt-1">Imports 4 internal modules: os, health, models, state</p>
+        </div>
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <code class="text-sm text-purple-400">position_guard/engine.py</code>
+          <p class="text-xs text-gray-500 mt-1">Imports 7 internal modules: alerts, client, health, models, state</p>
+        </div>
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <code class="text-sm text-purple-400">position_guard/cli.py</code>
+          <p class="text-xs text-gray-500 mt-1">Imports 6 internal modules: engine, preview, scheduler, storage, state</p>
+        </div>
+        <div class="bg-gray-900 rounded-lg p-4 mb-3">
+          <code class="text-sm text-purple-400">tests/test_integration.py</code>
+          <p class="text-xs text-gray-500 mt-1">Imports 5 internal modules: position_guard, position_guard, position_guard, position_guard, position_guard</p>
+        </div>
+
+
+    <h2 class="text-lg font-semibold text-white mt-8 mb-3">Dependency Graph</h2>
+    <div class="bg-gray-900 rounded-lg p-4 mb-3">
+      <pre class="text-xs text-gray-400 overflow-x-auto">graph TD
+  position_guard_alerts_py --> __future__
+  position_guard_alerts_py --> hashlib
+  position_guard_alerts_py --> json
+  position_guard_alerts_py --> os
+  position_guard_alerts_py --> dataclasses
+  position_guard_alerts_py --> httpx
+  position_guard_alerts_py --> health
+  position_guard_alerts_py --> models
+  position_guard_alerts_py --> state
+  position_guard_preview_py --> __future__
+  position_guard_preview_py --> html
+  position_guard_preview_py --> time
+  position_guard_preview_py --> datetime
+  position_guard_preview_py --> pathlib
+  position_guard_models_py --> __future__
+  position_guard_models_py --> dataclasses
+  position_guard_health_py --> __future__
+  position_guard_health_py --> math
+  position_guard_health_py --> collections
+  position_guard_health_py --> models
+  position_guard_telegram_py --> __future__
+  position_guard_telegram_py --> logging
+  position_guard_telegram_py --> os
+  position_guard_telegram_py --> httpx
+  position_guard_client_py --> __future__
+  position_guard_client_py --> json
+  position_guard_client_py --> logging
+  position_guard_client_py --> time
+  position_guard_client_py --> pathlib
+  position_guard_client_py --> httpx
+  position_guard_client_py --> models
+  position_guard_engine_py --> __future__
+  position_guard_engine_py --> time
+  position_guard_engine_py --> pathlib
+  position_guard_engine_py --> alerts
+  position_guard_engine_py --> client
+  position_guard_engine_py --> health
+  position_guard_engine_py --> models
+  position_guard_engine_py --> state
+  position_guard_engine_py --> storage
+  position_guard_engine_py --> telegram
+  position_guard_cli_py --> __future__
+  position_guard_cli_py --> json
+  position_guard_cli_py --> logging
+  position_guard_cli_py --> threading
+  position_guard_cli_py --> webbrowser
+  position_guard_cli_py --> http
+  position_guard_cli_py --> pathlib
+  position_guard_cli_py --> click
+  position_guard_cli_py --> rich
+  position_guard_cli_py --> engine
+  position_guard_cli_py --> preview
+  position_guard_cli_py --> scheduler
+  position_guard_cli_py --> storage
+  position_guard_cli_py --> state
+  position_guard_cli_py --> functools
+  position_guard_cli_py --> datetime
+  position_guard_storage_py --> __future__
+  position_guard_storage_py --> json
+  position_guard_storage_py --> sqlite3
+  position_guard_storage_py --> time
+  position_guard_storage_py --> pathlib
+  position_guard_scheduler_py --> __future__
+  position_guard_scheduler_py --> logging
+  position_guard_scheduler_py --> time
+  position_guard_scheduler_py --> collections
+  position_guard___main___py --> cli
+  position_guard_state_py --> __future__
+  position_guard_state_py --> dataclasses
+  position_guard_state_py --> enum
+  tests_test_telegram_py --> __future__
+  tests_test_telegram_py --> json
+  tests_test_telegram_py --> httpx
+  tests_test_telegram_py --> position_guard
+  tests_conftest_py --> __future__
+  tests_conftest_py --> pathlib
+  tests_conftest_py --> pytest
+  tests_conftest_py --> json
+  tests_test_state_py --> __future__
+  tests_test_state_py --> pytest
+  tests_test_state_py --> position_guard
+  tests_test_alerts_py --> __future__
+  tests_test_alerts_py --> position_guard
+  tests_test_alerts_py --> json
+  tests_test_alerts_py --> httpx
+  tests_test_storage_py --> __future__
+  tests_test_storage_py --> position_guard
+  tests_test_health_py --> __future__
+  tests_test_health_py --> position_guard
+  tests_test_health_py --> pytest
+  tests_test_integration_py --> __future__
+  tests_test_integration_py --> pathlib
+  tests_test_integration_py --> pytest
+  tests_test_integration_py --> click
+  tests_test_integration_py --> position_guard
+  tests_test_integration_py --> json
+  tests_test_client_py --> __future__
+  tests_test_client_py --> json
+  tests_test_client_py --> pathlib
+  tests_test_client_py --> httpx
+  tests_test_client_py --> pytest
+  tests_test_client_py --> position_guard
+  scripts_make_demo_svg_py --> __future__
+  scripts_make_demo_svg_py --> sys
+  scripts_make_demo_svg_py --> pathlib
+  scripts_make_demo_svg_py --> rich
+  scripts_make_demo_svg_py --> position_guard
+  scripts_daily_update_py --> __future__
+  scripts_daily_update_py --> datetime
+  scripts_daily_update_py --> json
+  scripts_daily_update_py --> os
+  scripts_daily_update_py --> re
+  scripts_daily_update_py --> subprocess
+  scripts_daily_update_py --> sys
+  scripts_daily_update_py --> pathlib</pre>
+    </div>
+
+</body>
+</html>

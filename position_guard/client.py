@@ -123,12 +123,14 @@ class SubgraphClient:
         self,
         endpoint: str,
         fixture: Path | str,
+        query: str,
         timeout: float = 8.0,
         transport: httpx.BaseTransport | None = None,
         silent_fallback: bool = False,
     ) -> None:
         self.endpoint = endpoint
         self.fixture = Path(fixture)
+        self.query = query
         self.timeout = timeout
         self._transport = transport
         self.silent_fallback = silent_fallback
@@ -150,6 +152,34 @@ class SubgraphClient:
                 raise SourceError(f"subgraph error: {data['errors']}")
             return data
 
+    def raw_query(self, address: str) -> dict:
+        try:
+            data = self._post(self.query, {"id": address.lower()})
+            self.using_live = True
+            return data
+        except (httpx.HTTPError, SourceError, ValueError) as exc:
+            _log_fallback(exc, self.silent_fallback)
+            self.using_live = False
+            return json.loads(self.fixture.read_text(encoding="utf-8"))
+
+    def query_position(self, address: str, *args: float) -> Position:
+        """Fetch + parse one position. Extra positional args (e.g. eth_usd)
+        pass through to the protocol's parse_position seam. Raises SourceError
+        when the payload is malformed."""
+        data = self.raw_query(address)
+        try:
+            pos = self.parse_position(data["data"], address, *args)
+        except (KeyError, TypeError) as exc:
+            raise SourceError(f"malformed subgraph payload: {exc}") from exc
+        pos.source = "live" if self.using_live else "fixture"
+        return pos
+
+    # -- protocol seam (override in subclasses) -------------------------------
+
+    @staticmethod
+    def parse_position(data: dict, address: str, *args: float) -> Position:
+        raise NotImplementedError
+
 
 class AaveV3Client(SubgraphClient):
     def __init__(
@@ -164,32 +194,14 @@ class AaveV3Client(SubgraphClient):
         super().__init__(
             endpoint or AAVE_V3_ENDPOINT,
             fixture=fixture or FIXTURE_DIR / "aave_v3_demo.json",
+            query=_AAVE_V3_QUERY,
             timeout=timeout,
             transport=transport,
             silent_fallback=silent_fallback,
         )
 
-    def raw_query(self, address: str) -> dict:
-        try:
-            data = self._post(_AAVE_V3_QUERY, {"id": address.lower()})
-            self.using_live = True
-            return data
-        except (httpx.HTTPError, SourceError, ValueError) as exc:
-            _log_fallback(exc, self.silent_fallback)
-            self.using_live = False
-            return json.loads(self.fixture.read_text(encoding="utf-8"))
-
-    def query_position(self, address: str, eth_usd: float) -> Position:
-        parse = lambda data, addr: self._parse(data, addr, eth_usd)
-        data = self.raw_query(address)
-        try:
-            pos = parse(data["data"], address)
-        except (KeyError, TypeError) as exc:
-            raise SourceError(f"malformed subgraph payload: {exc}") from exc
-        pos.source = "live" if self.using_live else "fixture"
-        return pos
-
-    def _parse(self, data: dict, address: str, eth_usd: float) -> Position:
+    @staticmethod
+    def parse_position(data: dict, address: str, eth_usd: float) -> Position:
         """Build a Position from the Aave v3 user payload.
 
         Weights: liquidationThreshold from the reserve, in basis points
@@ -234,27 +246,20 @@ class CompoundV3Client(SubgraphClient):
         super().__init__(
             endpoint or COMPOUND_V3_ENDPOINT,
             fixture=fixture or FIXTURE_DIR / "compound_v3_demo.json",
+            query=_COMPOUND_V3_QUERY,
             timeout=timeout,
             transport=transport,
             silent_fallback=silent_fallback,
         )
 
-    def raw_query(self, address: str) -> dict:
-        try:
-            data = self._post(_COMPOUND_V3_QUERY, {"id": address.lower()})
-            self.using_live = True
-            return data
-        except (httpx.HTTPError, SourceError, ValueError) as exc:
-            _log_fallback(exc, self.silent_fallback)
-            self.using_live = False
-            return json.loads(self.fixture.read_text(encoding="utf-8"))
+    @staticmethod
+    def parse_position(data: dict, address: str) -> Position:
+        """Build a Position from the Compound v3 account payload.
 
-    def query_position(self, address: str) -> Position:
-        data = self.raw_query(address)
-        try:
-            account = data["data"]["account"]
-        except (KeyError, TypeError) as exc:
-            raise SourceError(f"malformed subgraph payload: {exc}") from exc
+        Weights: borrow collateralization percent per asset (from
+        _borrow_col_pct). Prices arrive USD-denominated directly.
+        """
+        account = data["account"]
         borrow = float(account["baseBorrowed"] or 0)
         collateral = [
             AssetPosition(
@@ -262,18 +267,16 @@ class CompoundV3Client(SubgraphClient):
                 float(c["amount"]),
                 float(c["amount"]) * float(c["asset"]["price"]["priceUsd"]),
                 True,
-                self._borrow_col_pct(c["asset"]["symbol"]),
+                CompoundV3Client._borrow_col_pct(c["asset"]["symbol"]),
             )
             for c in account.get("collateral") or []
         ]
-        pos = Position(
+        return Position(
             address,
             "compound-v3",
             collateral,
             [AssetPosition("USDC", borrow, borrow, False)] if borrow > 0 else [],
         )
-        pos.source = "live" if self.using_live else "fixture"
-        return pos
 
     @staticmethod
     def _borrow_col_pct(symbol: str) -> float:

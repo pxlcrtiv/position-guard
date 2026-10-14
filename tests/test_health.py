@@ -20,7 +20,7 @@ ETH_USD = 3400.0
 
 
 def _aave_position_from(payload: dict, address: str = "0x" + "d3" * 20) -> Position:
-    return AaveV3Client(endpoint="http://127.0.0.1:1")._parse(payload["data"], address, ETH_USD)
+    return AaveV3Client.parse_position(payload["data"], address, ETH_USD)
 
 
 def _compound_position_from(payload: dict, address: str = "0x" + "d3" * 20) -> Position:

@@ -59,11 +59,7 @@ def compound_v3_health_factor(position: Position) -> float | None:
 
 def margin_left_usd(position: Position) -> float:
     """Dollars of room before the position becomes liquidatable (HF = 1.0)."""
-    weighted = 0.0
-    for leg in position.collateral:
-        weight = leg.weight if leg.weight is not None else 1.0
-        weighted += leg.usd_value * weight
-    return weighted - position.debt_usd
+    return _weighted_collateral(position.collateral, default_weight=1.0) - position.debt_usd
 
 
 def liquidation_price(

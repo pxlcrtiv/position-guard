@@ -211,29 +211,6 @@ the deterministic templates — alerts are never dropped.
 
 The math is a monitoring aid. Protocol UI numbers win when they differ.
 
-## Daily Green automation
-
-This repo makes one meaningful, dated commit every single day — no empty
-commits and no filler: each day appends one hand-curated DeFi liquidity-risk
-tip to `docs/daily-tips.md`, rotated deterministically from a pool.
-
-- `scripts/daily_update.py` picks today's tip from `scripts/tips_pool.json`
-  (calendar-day rotation), appends it to `docs/daily-tips.md`, commits it as
-  `docs: daily defi risk tip YYYY-MM-DD` and pushes.
-- Idempotent: a day is never committed twice; repeated runs are no-ops.
-- Local scheduler (primary): macOS `launchd` at **12:07 and 18:07 local**
-  (`~/Library/LaunchAgents/com.pxlcrtiv.daily-green.plist`, wrapper
-  `~/portfolio/scripts/daily-green.sh` — auto-discovers every portfolio repo,
-  including this one).
-- Cloud fallback: `.github/workflows/daily.yml` runs the same script at
-  **12:00 UTC**. Whichever fires first wins the day; missed days are backfilled
-  (max 14) with dated, non-empty commits.
-- Pause: `touch .daily-pause` (this repo) or unload the launchd job (all).
-
-> Note: this GitHub account currently cannot start Actions runners at all
-> (account billing lock). The workflow files are valid and take over once
-> that is resolved; until then the local launchd job is the live scheduler.
-
 ## Roadmap / status
 
 | Item | Status |

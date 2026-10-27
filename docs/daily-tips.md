@@ -396,3 +396,8 @@ When you supply ETH to Aave you earn the supply rate, but your collateral's heal
 
 > `position-guard history --address 0xYourAddressHere`
 
+
+## 2026-10-27 — DeFi risk tip: Unlimited approvals are a permanent backdoor
+
+An approval from 2023 still lets that contract move your tokens. Revoke approvals you no longer use (revoke.cash, or a dedicated revoker). For position management, prefer 'spend limit = position size + buffer'; for monitoring bots, a read-only key or no key at all — position-guard needs only a public address.
+

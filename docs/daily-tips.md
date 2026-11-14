@@ -482,6 +482,7 @@ Roughly: ETH liquidation price = debt / (ETH amount × liq threshold) with other
 > `position-guard check --address 0xYourAddressHere --json-out`
 
 
+<<<<<<< Updated upstream
 ## 2026-11-11 — DeFi risk tip: Health factor below 1.0 is not a warning — it is a live auction
 
 At HF < 1.00 your position is immediately liquidatable, and anyone can repay your debt to claim a discount on your collateral. There is no 'grace period'. Monitor HF with a buffer: act at 1.15, not at 1.01. position-guard's critical band starts there on purpose.
@@ -499,4 +500,12 @@ A position at 1.12 HF has ~12% price room before liquidation on paper — but or
 ## 2026-11-13 — DeFi risk tip: Stablecoins are not stable — depeg risk is collateral risk
 
 If your debt is in a stablecoin that depegs to $0.90, your dollar debt drops (good for you) — but if you HOLD that stablecoin as collateral and it depegs, your collateral USD value collapses while the protocol's oracle may lag or follow the exchange price (bad for you). Never borrow against a stablecoin's full nominal value.
+
+=======
+## 2026-11-1
+>>>>>>> Stashed changes
+
+## 2026-11-14 — DeFi risk tip: Oracle lag is a liquidation weapon
+
+Aave and Compound price assets via oracles that can lag spot markets (especially during volatility and low liquidity). Liquidator bots watch for the moment oracle price crosses your liquidation price — they don't wait for 'fair value'. Assumed oracle = fast is the wrong assumption.
 
